@@ -13,12 +13,11 @@
 
     <groupId>com.zhi.blog</groupId>
     <artifactId>zhi-blog</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <packaging>pom</packaging>
     <modules>
         <module>zhi-blog-article</module>
         <module>zhi-blog-common</module>
-        <module>zhi-blog-starter</module>
         <module>zhi-blog-comment</module>
         <module>zhi-blog-file-server</module>
         <module>zhi-blog-friend-link</module>
@@ -34,9 +33,9 @@
         <spring.boot.version>2.6.3</spring.boot.version>
         <spring.cloud.version>2021.0.1</spring.cloud.version>
         <spring.cloud.alibaba.version>2021.0.1.0</spring.cloud.alibaba.version>
-        <lombok.version>1.18.22</lombok.version>
-        <spring.fox.version>3.0.0</spring.fox.version>
+        <lombok.version>1.18.24</lombok.version>
         <spring.doc.version>1.6.8</spring.doc.version>
+        <zhi.blog.version>1.0</zhi.blog.version>
     </properties>
 
     <dependencyManagement>
@@ -73,14 +72,12 @@
                 <artifactId>springdoc-openapi-ui</artifactId>
                 <version>${spring.doc.version}</version>
             </dependency>
-<!--            &lt;!&ndash; OpenAPI 3 &ndash;&gt;-->
-<!--            <dependency>-->
-<!--                <groupId>org.springdoc</groupId>-->
-<!--                <artifactId>springdoc-openapi</artifactId>-->
-<!--                <version>${spring.doc.version}</version>-->
-<!--                <type>pom</type>-->
-<!--                <scope>import</scope>-->
-<!--            </dependency>-->
+            <!--blog-->
+            <dependency>
+                <groupId>com.zhi.blog</groupId>
+                <artifactId>zhi-blog-common-core</artifactId>
+                <version>${zhi.blog.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
