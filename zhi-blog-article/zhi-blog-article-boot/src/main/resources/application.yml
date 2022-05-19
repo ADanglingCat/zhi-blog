@@ -1,7 +1,31 @@
-spring:
-  application:
-    name: blog-article
-  profiles:
-    active: dev
 server:
   port: 9010
+  servlet:
+    context-path: /${spring.application.name}
+spring:
+  application:
+    name: zhi-blog-article
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        metadata:
+          management:
+            context-path: ${server.servlet.context-path}/actuator
+        server-addr: ${spring.cloud.nacos.config.server-addr}
+        username: ${spring.cloud.nacos.config.username}
+        password: ${spring.cloud.nacos.config.password}
+        namespace: ${spring.cloud.nacos.config.namespace}
+        group: ${spring.cloud.nacos.config.group}
+      config:
+        file-extension: yaml
+        server-addr: 127.0.0.1:8848
+        username: nacos
+        password: nacos
+        namespace: b7409ce8-7652-4054-8380-0747c68ff670
+        group: DEFAULT_GROUP
+  config:
+    import:
+      - nacos:share-nacos-discovery.yml
+
