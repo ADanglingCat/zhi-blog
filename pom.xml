@@ -75,7 +75,22 @@
             <!--blog-->
             <dependency>
                 <groupId>com.zhi.blog</groupId>
+                <artifactId>zhi-blog-common-service</artifactId>
+                <version>${zhi.blog.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zhi.blog</groupId>
+                <artifactId>zhi-blog-common-feign</artifactId>
+                <version>${zhi.blog.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zhi.blog</groupId>
                 <artifactId>zhi-blog-common-core</artifactId>
+                <version>${zhi.blog.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zhi.blog</groupId>
+                <artifactId>zhi-blog-article-api</artifactId>
                 <version>${zhi.blog.version}</version>
             </dependency>
         </dependencies>

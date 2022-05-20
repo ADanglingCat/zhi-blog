@@ -1,1 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.zhi.blog.common.core.config.CommonCoreConfig

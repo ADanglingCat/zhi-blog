@@ -18,7 +18,7 @@
     <dependencies>
         <dependency>
             <groupId>com.zhi.blog</groupId>
-            <artifactId>zhi-blog-common-core</artifactId>
+            <artifactId>zhi-blog-common-service</artifactId>
         </dependency>
     </dependencies>
 </project>

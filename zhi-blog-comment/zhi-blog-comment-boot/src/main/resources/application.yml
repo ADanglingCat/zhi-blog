@@ -1,23 +1,14 @@
 server:
-  port: 9010
+  port: 9011
   servlet:
     context-path: /${spring.application.name}
 spring:
   application:
-    name: zhi-blog-article
+    name: zhi-blog-comment
   profiles:
     active: dev
   cloud:
     nacos:
-      discovery:
-        metadata:
-          management:
-            context-path: ${server.servlet.context-path}/actuator
-        server-addr: ${spring.cloud.nacos.config.server-addr}
-        username: ${spring.cloud.nacos.config.username}
-        password: ${spring.cloud.nacos.config.password}
-        namespace: ${spring.cloud.nacos.config.namespace}
-        group: ${spring.cloud.nacos.config.group}
       config:
         file-extension: yaml
         server-addr: 127.0.0.1:8848
@@ -28,8 +19,21 @@ spring:
   config:
     import:
       - nacos:share-nacos-discovery.yml
+      - nacos:share-feign.yml
   swagger:
     title: ${spring.application.name}
-    description: "文章模块"
+    description: "评论模块"
     version: "v1.0.0"
-
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: 5000
+        read-timeout: 5000
+  httpclient:
+    enabled: true
+  compression:
+    request:
+      enabled: true
+    response:
+      enabled: true

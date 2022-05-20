@@ -2,7 +2,7 @@
 
     <!-- 定义日志存放目录 -->
     <property name="logPath" value="logs"/>
-    <property name="logName" value="zhi_blog_article"/>
+    <property name="logName" value="zhi_blog_comment"/>
 
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -22,7 +22,9 @@
         </encoder>
     </appender>
 
-    <root level="INFO">
+    <logger name="feign.Logger" level="DEBUG"/>
+
+    <root level="DEBUG">
         <appender-ref ref="console"/>
         <appender-ref ref="file"/>
     </root>
