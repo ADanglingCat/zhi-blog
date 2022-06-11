@@ -17,7 +17,7 @@ public class FeignRequestInterceptor implements RequestInterceptor {
         var headers = request.getHeaderNames();
         while (headers.hasMoreElements()) {
             var key = headers.nextElement();
-            if(key.equalsIgnoreCase("Authorization")) {
+            if("Authorization".equalsIgnoreCase(key)) {
                 var value = request.getHeader(key);
                 template.header(key, value);
             }

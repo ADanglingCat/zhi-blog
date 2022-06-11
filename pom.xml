@@ -69,7 +69,12 @@
             </dependency>
             <dependency>
                 <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-ui</artifactId>
+                <artifactId>springdoc-openapi-webmvc-core</artifactId>
+                <version>${spring.doc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-webflux-ui</artifactId>
                 <version>${spring.doc.version}</version>
             </dependency>
             <!--blog-->

@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Profile;
 @Configuration
 @RequiredArgsConstructor
 @ComponentScan
-public class CommonCoreAutoConfig {
+public class CommonServiceAutoConfig {
     private final SwaggerProperty swaggerProperty;
 
     @Profile({"dev", "test"})

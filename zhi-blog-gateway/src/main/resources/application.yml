@@ -1,8 +1,8 @@
 server:
-  port: 9010
+  port: 9014
 spring:
   application:
-    name: zhi-blog-article
+    name: zhi-blog-gateway
   profiles:
     active: dev
   cloud:
@@ -16,4 +16,4 @@ spring:
   config:
     import:
       - nacos:share-nacos-discovery.yml
-      - nacos:zhi-blog-article.yml
+      - nacos:zhi-blog-gateway.yml
