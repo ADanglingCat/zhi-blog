@@ -9,28 +9,36 @@ import lombok.Data;
  **/
 @Data
 @AllArgsConstructor
-public class CommonResult<T> {
+public class CommonResult {
     private Integer code;
     private String msg;
-    private T data;
+    private Object data;
 
-    public static <T> CommonResult<T> success() {
+    public static CommonResult success() {
         return success(null);
     }
 
-    public static <T> CommonResult<T> success(T data) {
-        return new CommonResult<>(200, "OK", data);
+    public static CommonResult success(Object data) {
+        return new CommonResult(CommonStatus.CODE_OK, CommonStatus.MSG_OK, data);
     }
 
-    public static <T> CommonResult<T> failure() {
-        return new CommonResult<>(500, "INTERNAL_SERVER_ERROR", null);
+    public static CommonResult failure() {
+        return failure(CommonStatus.MSG_SERVER_ERROR);
     }
 
-    public static <T> CommonResult<T> failure(CommonStatus commonStatus) {
-        return new CommonResult<>(commonStatus.getCode(), commonStatus.getMsg(), null);
+    public static CommonResult failure(String msg) {
+        return new CommonResult(CommonStatus.CODE_SERVER_ERROR, msg, null);
+    }
+
+    public static CommonResult result(CommonStatus commonStatus) {
+        return result(commonStatus, null);
+    }
+
+    public static CommonResult result(CommonStatus commonStatus, Object data) {
+        return new CommonResult(commonStatus.getCode(), commonStatus.getMsg(), data);
     }
 
     public boolean assertSuccess() {
-        return code == 200;
+        return CommonStatus.CODE_OK.equals(code);
     }
 }

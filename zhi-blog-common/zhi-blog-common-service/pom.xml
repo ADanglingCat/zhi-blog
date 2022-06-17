@@ -27,12 +27,8 @@
             <artifactId>springdoc-openapi-webmvc-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+            <groupId>com.zhi.blog</groupId>
+            <artifactId>zhi-blog-common-nacos</artifactId>
         </dependency>
         <dependency>
             <groupId>com.zhi.blog</groupId>

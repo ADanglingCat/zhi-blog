@@ -1,4 +1,4 @@
-package com.zhi.blog.common.service.model;
+package com.zhi.blog.common.core.model;
 
 
 import java.io.Serializable;

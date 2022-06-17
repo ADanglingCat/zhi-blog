@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
-    public CommonResult<?> exceptionHandler(Exception e) {
+    public CommonResult exceptionHandler(Exception e) {
         log.error("exceptionHandler ", e);
         return CommonResult.failure();
     }
 
     @ExceptionHandler(BlogException.class)
-    public CommonResult<?> blogExceptionHandler(BlogException e) {
+    public CommonResult blogExceptionHandler(BlogException e) {
         log.error("blogExceptionHandler ", e);
         return CommonResult.failure();
     }

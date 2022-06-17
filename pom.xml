@@ -90,6 +90,11 @@
             </dependency>
             <dependency>
                 <groupId>com.zhi.blog</groupId>
+                <artifactId>zhi-blog-common-nacos</artifactId>
+                <version>${zhi.blog.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zhi.blog</groupId>
                 <artifactId>zhi-blog-common-core</artifactId>
                 <version>${zhi.blog.version}</version>
             </dependency>
