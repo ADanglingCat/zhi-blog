@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
@@ -28,6 +29,7 @@ public class JsonUtil {
         JSON_MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
                 .configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         JSON_MAPPER.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        JSON_MAPPER.registerModule(new Jdk8Module());
         JSON_MAPPER.registerModule(new JavaTimeModule()
                 .addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
@@ -45,7 +47,7 @@ public class JsonUtil {
         } catch (JsonProcessingException e) {
             log.error("toJsonString ", e);
         }
-        return null;
+        return getJsonObject().toString();
     }
 
     public static <T> T toJavaObject(String jsonString, Class<T> clazz) {
@@ -76,7 +78,7 @@ public class JsonUtil {
     }
 
     public static ObjectNode toJsonObject(String jsonString) {
-        if (!CommonUtil.isEmpty(jsonString)) {
+        if (!CommonCoreUtil.isEmpty(jsonString)) {
             try {
                 return ((ObjectNode) getObjectMapper().readTree(jsonString));
             } catch (JsonProcessingException e) {
@@ -88,14 +90,14 @@ public class JsonUtil {
 
     public static ObjectNode put(String key, Object value) {
         ObjectNode objectNode = getJsonObject();
-        if (!CommonUtil.isEmpty(value)) {
+        if (!CommonCoreUtil.isEmpty(value)) {
             objectNode.putPOJO(key, value);
         }
         return objectNode;
     }
 
     public static ObjectNode put(ObjectNode objectNode, String key, Object value) {
-        if (!CommonUtil.isEmpty(value)) {
+        if (!CommonCoreUtil.isEmpty(value)) {
             objectNode.putPOJO(key, value);
         }
         return objectNode;

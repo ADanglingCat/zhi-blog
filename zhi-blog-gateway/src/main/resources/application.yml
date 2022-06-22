@@ -17,3 +17,5 @@ spring:
     import:
       - nacos:share-nacos-discovery.yml
       - nacos:zhi-blog-gateway.yml
+oauth:
+  key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAl1+Edt/CU+M5vTYUZPQ6dP463x6jSGbuL/RMDf1wEkSKbxtL1jgyS6g9D4T85CujtJm5XgPrrSklY2aT7teaRMfb7U+YZMjJ8Yup6OBiou52CAfgqG4vNg2pi8CQGDJWRSDmnzSW9XxjRuhJMTilALUgRxvCsEAGhNJ0OumZwpIpQ3LrAq3bQ/TT3TjRWVRiazGhe9U0bU+vpzWztpyW/BfjoSipPfvUemzKOzCEZzerxzvJqHgwgO3o7LF5ETnuZPj8RdgXAjfOQgKCgODcNtvEg2I/+CcsrksqxaNrcI5cKFewYaZq6r/jeWwQETVwcoUbhXSArhaDuYZlDaWT0wIDAQAB

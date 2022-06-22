@@ -10,8 +10,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  **/
 @EnableDiscoveryClient
 @SpringBootApplication
-public class BlogGatewayApplication {
+public class GatewayApplication {
     public static void main(String[] args) {
-        SpringApplication.run(BlogGatewayApplication.class, args);
+        SpringApplication.run(GatewayApplication.class, args);
     }
 }

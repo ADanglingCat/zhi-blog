@@ -3,6 +3,21 @@ server:
   servlet:
     context-path: /${spring.application.name}
 spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          default:
+            client-id: default
+            client-secret: Default@1024
+            scope: default
+            authorization-grant-type: authorization_code
+            provider: server
+            redirect-uri: https://www.baidu.com
+            client-authentication-method: client_secret_basic
+        provider:
+          server:
+            issuer-uri: http://dfy.com:9016/zhi-blog-auth-server
   application:
     name: zhi-blog-comment
   profiles:

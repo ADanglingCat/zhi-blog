@@ -6,10 +6,7 @@ import com.zhi.blog.common.service.model.BaseController;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -30,15 +27,15 @@ public class ArticleController extends BaseController {
     private String name;
 
     @GetMapping
-    public CommonResult getArticle(HttpServletRequest request) {
+    public CommonResult getArticle(HttpServletRequest request, @RequestHeader("tokeInfo") String tokenInfo) {
         log.info("test {}", request.getHeader("Authorization"));
         return CommonResult.success();
     }
 
     @PostMapping
-    public CommonResult addArticle() {
-        log.info("addArticle {} {}", version, name);
-        return CommonResult.success(version + name);
+    public CommonResult addArticle(@RequestHeader("tokeInfo") String tokenInfo) {
+        log.info("addArticle {} {} {}", version, name, tokenInfo);
+        return CommonResult.success(version + name + tokenInfo);
     }
 
 }

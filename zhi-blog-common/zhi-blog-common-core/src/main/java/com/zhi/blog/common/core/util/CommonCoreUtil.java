@@ -11,7 +11,7 @@ import java.util.Optional;
   * @author Ted
   * @date 2022/5/13
   **/
-public class CommonUtil {
+public class CommonCoreUtil {
     /**
      * 雪花算法
      * @return 唯一id
@@ -20,6 +20,10 @@ public class CommonUtil {
         return Snowflake.nextId();
     }
 
+    /**
+     * @param obj obj
+     * @return 类是否为空
+     */
     public static boolean isEmpty(Object obj) {
         if (obj == null) {
             return true;

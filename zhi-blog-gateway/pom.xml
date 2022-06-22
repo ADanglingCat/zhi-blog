@@ -38,6 +38,10 @@
             <groupId>com.zhi.blog</groupId>
             <artifactId>zhi-blog-common-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

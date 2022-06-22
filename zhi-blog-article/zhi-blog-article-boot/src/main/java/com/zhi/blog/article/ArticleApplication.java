@@ -1,15 +1,15 @@
-package com.zhi.blog.comment;
+package com.zhi.blog.article;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * @author Ted
- * @date 2022/5/20
+ * @date 2022/5/12
  **/
 @SpringBootApplication
-public class BlogCommentApplication {
+public class ArticleApplication {
     public static void main(String[] args) {
-        SpringApplication.run(BlogCommentApplication.class, args);
+        SpringApplication.run(ArticleApplication.class, args);
     }
 }

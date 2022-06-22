@@ -1,6 +1,6 @@
 package com.zhi.blog.common.service.model;
 
-import com.zhi.blog.common.core.model.CommonStatus;
+import com.zhi.blog.common.core.model.ICommonStatus;
 import lombok.Getter;
 
 /**
@@ -9,9 +9,9 @@ import lombok.Getter;
  **/
 @Getter
 public class BlogException extends RuntimeException {
-    private final CommonStatus commonStatus;
+    private final ICommonStatus commonStatus;
 
-    public BlogException(CommonStatus commonStatus) {
+    public BlogException(ICommonStatus commonStatus) {
         super(commonStatus.getMsg());
         this.commonStatus = commonStatus;
     }

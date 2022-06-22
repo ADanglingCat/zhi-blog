@@ -19,26 +19,26 @@ public class CommonResult {
     }
 
     public static CommonResult success(Object data) {
-        return new CommonResult(CommonStatus.CODE_OK, CommonStatus.MSG_OK, data);
+        return new CommonResult(ICommonStatus.CODE_OK, ICommonStatus.MSG_OK, data);
     }
 
     public static CommonResult failure() {
-        return failure(CommonStatus.MSG_SERVER_ERROR);
+        return failure(ICommonStatus.MSG_SERVER_ERROR);
     }
 
     public static CommonResult failure(String msg) {
-        return new CommonResult(CommonStatus.CODE_SERVER_ERROR, msg, null);
+        return new CommonResult(ICommonStatus.CODE_SERVER_ERROR, msg, null);
     }
 
-    public static CommonResult result(CommonStatus commonStatus) {
+    public static CommonResult result(ICommonStatus commonStatus) {
         return result(commonStatus, null);
     }
 
-    public static CommonResult result(CommonStatus commonStatus, Object data) {
+    public static CommonResult result(ICommonStatus commonStatus, Object data) {
         return new CommonResult(commonStatus.getCode(), commonStatus.getMsg(), data);
     }
 
     public boolean assertSuccess() {
-        return CommonStatus.CODE_OK.equals(code);
+        return ICommonStatus.CODE_OK.equals(code);
     }
 }

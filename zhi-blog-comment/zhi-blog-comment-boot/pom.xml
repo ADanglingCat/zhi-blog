@@ -25,6 +25,10 @@
             <groupId>com.zhi.blog</groupId>
             <artifactId>zhi-blog-article-api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-client</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

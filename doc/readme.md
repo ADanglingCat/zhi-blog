@@ -36,8 +36,8 @@
 - [x] Nacos 配置中心和注册中心
 - [ ] Nacos 集群
 - [x] OpenFeign 服务调用
-- [ ] OpenFeign httpClient 替换
-- [ ] Gateway网关统一处理请求
+- [ ] OpenFeign 优化
+- [x] Gateway网关统一处理请求
 - [ ] OAuth2 认证
 - [ ] Sentinel 流量控制
 - [ ] Skywalking链路追踪
