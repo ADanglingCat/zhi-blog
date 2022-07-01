@@ -1,6 +1,6 @@
 package com.zhi.blog.gateway.config;
 
-import lombok.extern.slf4j.Slf4j;
+import com.zhi.blog.common.core.util.CoreUtil;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authorization.AuthorizationDecision;
 import org.springframework.security.authorization.ReactiveAuthorizationManager;
@@ -21,7 +21,6 @@ import java.util.Objects;
  * @author Ted
  * @date 2022/6/24
  **/
-@Slf4j
 @Component
 public class AuthorizationManager implements ReactiveAuthorizationManager<AuthorizationContext> {
     private static final Map<String, String> AUTH_MAP = new HashMap<>();
@@ -49,8 +48,8 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
                 .filter(temp -> temp instanceof JwtAuthenticationToken)
                 .cast(JwtAuthenticationToken.class)
                 .doOnNext(temp -> {
-                    log.info("check getHeaders {}", temp.getToken().getHeaders());
-                    log.info("check getTokenAttributes {}", temp.getTokenAttributes());
+                    CoreUtil.info("getHeaders", temp.getToken().getHeaders());
+                    CoreUtil.info("getTokenAttributes", temp.getTokenAttributes());
                 })
                 .flatMapIterable(JwtAuthenticationToken::getAuthorities)
                 .map(GrantedAuthority::getAuthority)

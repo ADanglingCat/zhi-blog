@@ -1,9 +1,9 @@
 package com.zhi.blog.gateway.util;
 
 import com.zhi.blog.common.core.model.CommonResult;
+import com.zhi.blog.common.core.util.CoreUtil;
 import com.zhi.blog.common.core.util.JsonUtil;
 import com.zhi.blog.gateway.model.CommonStatus;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,10 +18,9 @@ import java.nio.charset.StandardCharsets;
  * @author Ted
  * @date 2022/6/24
  **/
-@Slf4j
 public class CommonUtil {
     public static Mono<Void> mutateResponse(ServerHttpResponse response, Throwable exception) {
-        log.error("mutateResponse ", exception);
+        CoreUtil.error(exception);
         CommonResult commonResult;
         if (exception instanceof AuthenticationException) {
             commonResult = CommonResult.result(CommonStatus.UNAUTHORIZED);

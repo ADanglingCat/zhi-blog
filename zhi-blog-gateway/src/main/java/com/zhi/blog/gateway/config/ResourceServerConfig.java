@@ -2,7 +2,6 @@ package com.zhi.blog.gateway.config;
 
 import com.zhi.blog.gateway.util.CommonUtil;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +24,6 @@ import java.util.Base64;
  * @author Ted
  * @date 2022/6/24
  **/
-@Slf4j
 @RequiredArgsConstructor
 @Configuration
 @EnableWebFluxSecurity
@@ -46,7 +44,7 @@ public class ResourceServerConfig {
                 .and()
                 .authorizeExchange()
                 //静态资源和授权地址放行
-                .pathMatchers("/favicon.ico", "/webjars/**", "/*/*/api-docs/**").permitAll()
+                .pathMatchers("/favicon.ico", "/webjars/**", "/*/*/api-docs/**", "/oauth2/**").permitAll()
                 //其余请求进行鉴权
                 .anyExchange().access(authorizationManager)
                 .and()

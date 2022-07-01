@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -35,12 +37,14 @@ import org.springframework.security.oauth2.server.authorization.token.JwtEncodin
 import org.springframework.security.oauth2.server.authorization.token.OAuth2TokenCustomizer;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
 import java.security.KeyStore;
 import java.security.Principal;
 import java.security.PrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.time.Duration;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -72,7 +76,11 @@ public class AuthorizationServerConfig {
     @Order(1)
     public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) throws Exception {
         OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
-        return http.formLogin().and().build();
+        return http
+                .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
+                //重定向至登录页
+                .exceptionHandling(temp -> temp.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login")))
+                .build();
     }
 
     @Bean
@@ -82,10 +90,7 @@ public class AuthorizationServerConfig {
         return httpSecurity
                 .authorizeRequests().anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .and()
-                .logout()
-                .and()
+                .formLogin(Customizer.withDefaults())
                 .build();
     }
 
@@ -116,14 +121,16 @@ public class AuthorizationServerConfig {
                 //授权码模式
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-                .redirectUri("https://127.0.0.1:9014")
+                .redirectUri("https://127.0.0.1:9014/zhi-blog-auth-server/authorized")
                 .redirectUri("http://127.0.0.1:9011/zhi-blog-comment/login/oauth2/code/default")
-                .redirectUri("http://127.0.0.1:9011/zhi-blog-comment")
                 .redirectUri("https://www.baidu.com")
-                //作用域
-                .scope("default")
+                //作用域 默认需要添加openid支持/userinfo
+                .scopes(strings -> strings.addAll(List.of("default", "openid")))
+                //客户配置
                 .clientSettings(ClientSettings.builder()
-                        .requireAuthorizationConsent(true).build())
+                        //无需用户确认自动授权
+                        .requireAuthorizationConsent(false).build())
+                //令牌配置
                 .tokenSettings(TokenSettings.builder()
                         .accessTokenTimeToLive(Duration.ofDays(1))
                         .refreshTokenTimeToLive(Duration.ofDays(3))
@@ -206,8 +213,8 @@ public class AuthorizationServerConfig {
     }
 
     @Bean
-    public JwtDecoder jwtDecoder() throws Exception {
-        return OAuth2AuthorizationServerConfiguration.jwtDecoder(jwkSource());
+    JwtDecoder jwtDecoder(JWKSource<SecurityContext> jwkSource) {
+        return OAuth2AuthorizationServerConfiguration.jwtDecoder(jwkSource);
     }
 
 }

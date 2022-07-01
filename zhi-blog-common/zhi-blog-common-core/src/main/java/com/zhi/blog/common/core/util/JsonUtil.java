@@ -11,7 +11,6 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -21,7 +20,6 @@ import java.util.List;
  * @author Ted
  * @date 2022/6/16
  **/
-@Slf4j
 public class JsonUtil {
     private static final JsonMapper JSON_MAPPER = JsonMapper.builder().build();
 
@@ -34,7 +32,6 @@ public class JsonUtil {
                 .addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
         );
-//        jsonMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
     }
 
     public static JsonMapper getObjectMapper() {
@@ -45,7 +42,7 @@ public class JsonUtil {
         try {
             return getObjectMapper().writeValueAsString(object);
         } catch (JsonProcessingException e) {
-            log.error("toJsonString ", e);
+            CoreUtil.error(e);
         }
         return getJsonObject().toString();
     }
@@ -54,7 +51,7 @@ public class JsonUtil {
         try {
             return getObjectMapper().readValue(jsonString, clazz);
         } catch (JsonProcessingException e) {
-            log.error("toJavaObject ", e);
+            CoreUtil.error(e);
         }
         return null;
     }
@@ -63,7 +60,7 @@ public class JsonUtil {
         try {
             return getObjectMapper().readValue(jsonString, typeReference);
         } catch (JsonProcessingException e) {
-            log.error("toJavaObject ", e);
+            CoreUtil.error(e);
         }
         return null;
     }
@@ -72,17 +69,17 @@ public class JsonUtil {
         try {
             return getObjectMapper().readerForListOf(clazz).readValue(jsonString);
         } catch (JsonProcessingException e) {
-            log.error("toJavaList ", e);
+            CoreUtil.error(e);
         }
         return null;
     }
 
     public static ObjectNode toJsonObject(String jsonString) {
-        if (!CommonCoreUtil.isEmpty(jsonString)) {
+        if (!CoreUtil.isEmpty(jsonString)) {
             try {
                 return ((ObjectNode) getObjectMapper().readTree(jsonString));
             } catch (JsonProcessingException e) {
-                log.error("toJsonObject ", e);
+                CoreUtil.error(e);
             }
         }
         return getJsonObject();
@@ -90,14 +87,14 @@ public class JsonUtil {
 
     public static ObjectNode put(String key, Object value) {
         ObjectNode objectNode = getJsonObject();
-        if (!CommonCoreUtil.isEmpty(value)) {
+        if (!CoreUtil.isEmpty(value)) {
             objectNode.putPOJO(key, value);
         }
         return objectNode;
     }
 
     public static ObjectNode put(ObjectNode objectNode, String key, Object value) {
-        if (!CommonCoreUtil.isEmpty(value)) {
+        if (!CoreUtil.isEmpty(value)) {
             objectNode.putPOJO(key, value);
         }
         return objectNode;

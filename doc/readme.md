@@ -8,11 +8,12 @@
 
 | 依赖                 | 描述       | 版本         |
 |--------------------|----------|------------|
-| SpringBoot         | 容器/MVC框架 | 2.6.3      |
-| SpringCloud        | 微服务框架    | 2021.0.1   |
+| SpringBoot         | 容器/MVC框架 | 2.7.1      |
+| SpringCloud        | 微服务框架    | 2021.0.3   |
 | SpringCloudAlibaba | 微服务框架    | 2021.0.1.0 |
 | Lombok             | 代码简化工具   | 1.18.24    |
 | SpringDoc          | 接口文档文具   | 1.6.8      |
+| AuthServer         | 授权服务     | 0.3.1      |
 
 ### 服务介绍
 
@@ -38,7 +39,7 @@
 - [x] OpenFeign 服务调用
 - [ ] OpenFeign 优化
 - [x] Gateway网关统一处理请求
-- [ ] OAuth2 认证
+- [x] OAuth2 认证
 - [ ] Sentinel 流量控制
 - [ ] Skywalking链路追踪
 - [ ] Spring Boot Admin监控服务

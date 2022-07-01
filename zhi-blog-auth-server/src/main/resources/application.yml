@@ -25,4 +25,5 @@ spring:
       - nacos:zhi-blog-auth-server.yml
 logging:
   level:
-    root: debug
+    root: info
+    org.springframework.security: debug
