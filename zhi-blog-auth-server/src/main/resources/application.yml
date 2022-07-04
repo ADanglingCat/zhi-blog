@@ -15,13 +15,10 @@ spring:
         password: nacos
         namespace: b7409ce8-7652-4054-8380-0747c68ff670
         group: DEFAULT_GROUP
-  datasource:
-    url: jdbc:mysql://127.0.0.1:3306/zhi_blog_auth_server?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowMultiQueries=true&serverTimezone=Asia/Shanghai
-    username: root
-    password: Nov2014
   config:
     import:
       - nacos:share-nacos-discovery.yml
+      - nacos:share-datasource.yml
       - nacos:zhi-blog-auth-server.yml
 logging:
   level:

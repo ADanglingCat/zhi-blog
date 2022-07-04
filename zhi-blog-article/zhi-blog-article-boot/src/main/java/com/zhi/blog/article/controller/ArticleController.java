@@ -27,7 +27,7 @@ public class ArticleController extends BaseController {
 
     @GetMapping
     public CommonResult getArticle(HttpServletRequest request) {
-        CoreUtil.info("authorization", request.getHeader("Authorization"));
+        CoreUtil.info("authorization", request.getHeader("Authorization"), request.getHeader("tempKey"));
         return CommonResult.success();
     }
 

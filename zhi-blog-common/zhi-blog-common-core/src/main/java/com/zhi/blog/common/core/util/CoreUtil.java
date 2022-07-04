@@ -25,8 +25,20 @@ public class CoreUtil {
                 , Arrays.stream(params).map(String::valueOf).collect(Collectors.joining(",")));
     }
 
+    public static void warn(String info, Object... params) {
+        var exception = new Exception().getStackTrace()[1];
+        String className = exception.getClassName();
+        String methodName = exception.getMethodName();
+        log.warn("info {} {} {} {}",className, methodName, info
+                , Arrays.stream(params).map(String::valueOf).collect(Collectors.joining(",")));
+    }
+
+    public static void error(String info, Throwable e) {
+        log.error("error {}", info, e);
+    }
+
     public static void error(Throwable e) {
-        log.error("handled ", e);
+        log.error("error ", e);
     }
 
     /**

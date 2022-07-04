@@ -18,12 +18,14 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
+ * 鉴权管理
  * @author Ted
  * @date 2022/6/24
  **/
 @Component
 public class AuthorizationManager implements ReactiveAuthorizationManager<AuthorizationContext> {
     private static final Map<String, String> AUTH_MAP = new HashMap<>();
+
     @PostConstruct
     public void initAuthMap() {
         //dodo 2022/6/28 initAuthMap redis

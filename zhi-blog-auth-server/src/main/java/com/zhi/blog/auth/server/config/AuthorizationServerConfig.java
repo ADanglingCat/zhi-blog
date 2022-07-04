@@ -63,7 +63,7 @@ public class AuthorizationServerConfig {
      * token 增强
      * @return
      */
-//    @Bean
+    @Bean
     OAuth2TokenCustomizer<JwtEncodingContext> jwtCustomizer() {
         return context -> {
             Principal principal = context.getPrincipal();
@@ -100,7 +100,7 @@ public class AuthorizationServerConfig {
      */
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return web -> web.ignoring().antMatchers("/actuator/**");
+        return web -> web.ignoring().antMatchers("/actuator/**", "/druid/**");
     }
 
     /**
@@ -216,5 +216,12 @@ public class AuthorizationServerConfig {
     JwtDecoder jwtDecoder(JWKSource<SecurityContext> jwkSource) {
         return OAuth2AuthorizationServerConfiguration.jwtDecoder(jwkSource);
     }
+
+//    @ConfigurationProperties(prefix = "spring.datasource.druid")
+//    @Bean
+//    public DataSource dataSource() {
+//        DruidDataSource dataSource =  new DruidDataSource();
+//        return dataSource;
+//    }
 
 }

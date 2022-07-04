@@ -1,79 +1,54 @@
--- sql: https://github.com/spring-attic/spring-security-oauth/blob/main/spring-security-oauth2/src/test/resources/schema.sql
--- 注释: https://andaily.com/spring-oauth-server/db_table_description.html
--- 字段调整: VARCHAR(256) PRIMARY KEY -> VARCHAR(128) PRIMARY KEY
--- LONGVARBINARY -> BLOB
--- TIMESTAMP -> TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-create table oauth_client_details
+create table oauth2_authorization
 (
-    client_id               VARCHAR(128) PRIMARY KEY,
-    resource_ids            VARCHAR(256),
-    client_secret           VARCHAR(256),
-    scope                   VARCHAR(256),
-    authorized_grant_types  VARCHAR(256),
-    web_server_redirect_uri VARCHAR(256),
-    authorities             VARCHAR(256),
-    access_token_validity   INTEGER,
-    refresh_token_validity  INTEGER,
-    additional_information  VARCHAR(4096),
-    autoapprove             VARCHAR(256)
+    id                            varchar(100)                        not null
+        primary key,
+    registered_client_id          varchar(100)                        not null,
+    principal_name                varchar(200)                        not null,
+    authorization_grant_type      varchar(100)                        not null,
+    attributes                    blob                                null,
+    state                         varchar(500)                        null,
+    authorization_code_value      blob                                null,
+    authorization_code_issued_at  timestamp default CURRENT_TIMESTAMP not null,
+    authorization_code_expires_at timestamp default CURRENT_TIMESTAMP not null,
+    authorization_code_metadata   blob                                null,
+    access_token_value            blob                                null,
+    access_token_issued_at        timestamp default CURRENT_TIMESTAMP not null,
+    access_token_expires_at       timestamp default CURRENT_TIMESTAMP not null,
+    access_token_metadata         blob                                null,
+    access_token_type             varchar(100)                        null,
+    access_token_scopes           varchar(1000)                       null,
+    oidc_id_token_value           blob                                null,
+    oidc_id_token_issued_at       timestamp default CURRENT_TIMESTAMP not null,
+    oidc_id_token_expires_at      timestamp default CURRENT_TIMESTAMP not null,
+    oidc_id_token_metadata        blob                                null,
+    refresh_token_value           blob                                null,
+    refresh_token_issued_at       timestamp default CURRENT_TIMESTAMP not null,
+    refresh_token_expires_at      timestamp default CURRENT_TIMESTAMP not null,
+    refresh_token_metadata        blob                                null
 );
 
-create table oauth_client_token
+create table oauth2_authorization_consent
 (
-    authentication_id VARCHAR(128) PRIMARY KEY,
-    token_id          VARCHAR(256),
-    token             BLOB,
-    user_name         VARCHAR(256),
-    client_id         VARCHAR(256)
+    registered_client_id varchar(100)  not null,
+    principal_name       varchar(200)  not null,
+    authorities          varchar(1000) not null,
+    primary key (registered_client_id, principal_name)
 );
 
-create table oauth_access_token
+create table oauth2_registered_client
 (
-    authentication_id VARCHAR(128) PRIMARY KEY,
-    token_id          VARCHAR(256),
-    token             BLOB,
-    user_name         VARCHAR(256),
-    client_id         VARCHAR(256),
-    authentication    BLOB,
-    refresh_token     VARCHAR(256)
+    id                            varchar(100)                        not null
+        primary key,
+    client_id                     varchar(100)                        not null,
+    client_id_issued_at           timestamp default CURRENT_TIMESTAMP not null,
+    client_secret                 varchar(200)                        null,
+    client_secret_expires_at      timestamp default CURRENT_TIMESTAMP not null,
+    client_name                   varchar(200)                        not null,
+    client_authentication_methods varchar(1000)                       not null,
+    authorization_grant_types     varchar(1000)                       not null,
+    redirect_uris                 varchar(1000)                       null,
+    scopes                        varchar(1000)                       not null,
+    client_settings               varchar(2000)                       not null,
+    token_settings                varchar(2000)                       not null
 );
 
-create table oauth_refresh_token
-(
-    token_id       VARCHAR(256),
-    token          BLOB,
-    authentication BLOB
-);
-
-create table oauth_code
-(
-    code           VARCHAR(256),
-    authentication BLOB
-);
-
-create table oauth_approvals
-(
-    userId         VARCHAR(256),
-    clientId       VARCHAR(256),
-    scope          VARCHAR(256),
-    status         VARCHAR(10),
-    expiresAt      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    lastModifiedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
---
--- -- customized oauth_client_details table
--- create table ClientDetails
--- (
---     appId                  VARCHAR(128) PRIMARY KEY,
---     resourceIds            VARCHAR(256),
---     appSecret              VARCHAR(256),
---     scope                  VARCHAR(256),
---     grantTypes             VARCHAR(256),
---     redirectUrl            VARCHAR(256),
---     authorities            VARCHAR(256),
---     access_token_validity  INTEGER,
---     refresh_token_validity INTEGER,
---     additionalInformation  VARCHAR(4096),
---     autoApproveScopes      VARCHAR(256)
--- );

@@ -8,11 +8,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
-import org.springframework.security.core.context.ReactiveSecurityContextHolder;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.oauth2.jwt.NimbusReactiveJwtDecoder;
 import org.springframework.security.oauth2.jwt.ReactiveJwtDecoder;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
+import org.springframework.security.oauth2.server.resource.web.server.ServerBearerTokenAuthenticationConverter;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 
 import java.security.KeyFactory;
@@ -30,6 +28,10 @@ import java.util.Base64;
 public class ResourceServerConfig {
     @Value("${oauth.key}")
     private String publicKey;
+    @Value("${oauth.white-urls}")
+    private String[] whiteUrls;
+    @Value("${oauth.block-urls}")
+    private String[] blockUrls;
     private final AuthorizationManager authorizationManager;
 
     @Bean
@@ -41,10 +43,12 @@ public class ResourceServerConfig {
                 //jwt异常处理
                 .accessDeniedHandler((exchange, denied) -> CommonUtil.mutateResponse(exchange.getResponse(), denied))
                 .authenticationEntryPoint((exchange, ex) -> CommonUtil.mutateResponse(exchange.getResponse(), ex))
+                .bearerTokenConverter(new ServerBearerTokenAuthenticationConverter())
                 .and()
                 .authorizeExchange()
                 //静态资源和授权地址放行
-                .pathMatchers("/favicon.ico", "/webjars/**", "/*/*/api-docs/**", "/oauth2/**").permitAll()
+                .pathMatchers(blockUrls).denyAll()
+                .pathMatchers(whiteUrls).permitAll()
                 //其余请求进行鉴权
                 .anyExchange().access(authorizationManager)
                 .and()
@@ -54,17 +58,12 @@ public class ResourceServerConfig {
                 .authenticationEntryPoint((exchange, ex) -> CommonUtil.mutateResponse(exchange.getResponse(), ex))
                 .and()
                 .csrf().disable()
-                //向下游传递header
-                .addFilterAfter((exchange, chain) -> ReactiveSecurityContextHolder.getContext()
-                        .map(SecurityContext::getAuthentication)
-                        .cast(JwtAuthenticationToken.class)
-                        .flatMap(temp -> {
-                            var request = exchange.getRequest()
-                                    .mutate()
-                                    .header("tokenInfo", "tokenValue")
-                                    .build();
-                            return chain.filter(exchange.mutate().request(request).build());
-                        }), SecurityWebFiltersOrder.AUTHORIZATION)
+                .addFilterAfter((exchange, chain) -> {
+                    var request = exchange.getRequest();
+                    var newRequest = request.mutate().header("tempKey", "tempValue").build();
+                    var newExchange = exchange.mutate().request(newRequest).build();
+                    return chain.filter(newExchange);
+                }, SecurityWebFiltersOrder.AUTHORIZATION)
                 .build();
     }
 
