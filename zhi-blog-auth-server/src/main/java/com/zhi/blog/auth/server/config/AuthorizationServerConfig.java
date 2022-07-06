@@ -217,11 +217,4 @@ public class AuthorizationServerConfig {
         return OAuth2AuthorizationServerConfiguration.jwtDecoder(jwkSource);
     }
 
-//    @ConfigurationProperties(prefix = "spring.datasource.druid")
-//    @Bean
-//    public DataSource dataSource() {
-//        DruidDataSource dataSource =  new DruidDataSource();
-//        return dataSource;
-//    }
-
 }

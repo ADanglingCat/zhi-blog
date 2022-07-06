@@ -36,8 +36,8 @@
 - [x] Logback 日志配置
 - [x] 统一异常处理
 - [ ] RabbitMq 配置
-- [ ] Redis 配置
-- [ ] MySQL 配置
+- [x] Redis 配置
+- [x] MySQL 配置
 - [x] Nacos 配置中心和注册中心
 - [x] OpenFeign 服务调用
 - [ ] OpenFeign 优化
