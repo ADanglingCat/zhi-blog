@@ -24,5 +24,9 @@
             <groupId>com.zhi.blog</groupId>
             <artifactId>zhi-blog-common-datasource</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.zhi.blog</groupId>
+            <artifactId>zhi-blog-common-mq</artifactId>
+        </dependency>
     </dependencies>
 </project>

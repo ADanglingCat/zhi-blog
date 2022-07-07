@@ -2,12 +2,14 @@ package com.zhi.blog.common.core.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author Ted
  * @date 2022/5/13
  **/
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class CommonResult {
     private Integer code;

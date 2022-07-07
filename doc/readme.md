@@ -35,7 +35,7 @@
 - [x] SpringDoc 接口文档
 - [x] Logback 日志配置
 - [x] 统一异常处理
-- [ ] RabbitMq 配置
+- [x] RabbitMq 配置
 - [x] Redis 配置
 - [x] MySQL 配置
 - [x] Nacos 配置中心和注册中心

@@ -19,6 +19,20 @@ spring:
       - nacos:share-nacos-discovery.yml
       - nacos:zhi-blog-article.yml
       - nacos:share-datasource.yml
-  datasource:
-    druid:
-      url: jdbc:mysql://127.0.0.1:3306/zhi_blog_auth_server?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowMultiQueries=true&serverTimezone=Asia/Shanghai
+  rabbitmq:
+    addresses: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+    listener:
+      simple:
+        acknowledge-mode: manual
+        #未确认消息数量超过prefetch 不再向消费者推送消息
+        prefetch: 100
+    #发送到broker或exchange失败手动处理
+    publisher-confirm-type: correlated
+    #找不到queue时消息退回
+    publisher-returns: true
+    template:
+      mandatory: true

@@ -135,6 +135,11 @@
                 <artifactId>zhi-blog-common-datasource</artifactId>
                 <version>${zhi.blog.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.zhi.blog</groupId>
+                <artifactId>zhi-blog-common-mq</artifactId>
+                <version>${zhi.blog.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
