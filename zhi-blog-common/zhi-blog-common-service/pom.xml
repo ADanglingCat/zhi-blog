@@ -36,6 +36,10 @@
         </dependency>
         <dependency>
             <groupId>com.zhi.blog</groupId>
+            <artifactId>zhi--blog-common-sentinel</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.zhi.blog</groupId>
             <artifactId>zhi-blog-common-core</artifactId>
         </dependency>
     </dependencies>

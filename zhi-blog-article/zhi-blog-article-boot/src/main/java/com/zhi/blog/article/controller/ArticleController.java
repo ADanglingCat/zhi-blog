@@ -1,6 +1,7 @@
 package com.zhi.blog.article.controller;
 
 import com.rabbitmq.client.Channel;
+import com.zhi.blog.article.dao.ArticleMapper;
 import com.zhi.blog.article.service.ArticleService;
 import com.zhi.blog.common.core.model.CommonResult;
 import com.zhi.blog.common.core.util.CoreUtil;
@@ -29,7 +30,7 @@ import java.util.UUID;
 public class ArticleController extends BaseController {
     private final ArticleService articleService;
     private final RabbitTemplate rabbitTemplate;
-
+    private final ArticleMapper articleMapper;
     @Value("${config.version:0}")
     private String version;
     @Value("${config.name:name}")
@@ -38,15 +39,8 @@ public class ArticleController extends BaseController {
     @GetMapping
     public CommonResult getArticle(HttpServletRequest request) {
         CoreUtil.info("authorization", request.getHeader("Authorization"), request.getHeader("tempKey"));
-        rabbitTemplate.setConfirmCallback((correlationData, ack, cause) -> {
-            CoreUtil.info("correlationData ack cause", correlationData, ack, cause);
-        });
-        rabbitTemplate.setReturnsCallback(returned -> {
-            CoreUtil.info("returned", returned);
-        });
-        rabbitTemplate.convertAndSend("directExchange", "articleKey", CommonResult.success(), new CorrelationData(UUID.randomUUID().toString()));
-        CoreUtil.info("send end");
-        return CommonResult.success();
+        var list = articleMapper.selectList(null);
+        return CommonResult.success(list);
     }
 
     @PostMapping
@@ -61,6 +55,17 @@ public class ArticleController extends BaseController {
         //手动确认
         channel.basicAck(message.getMessageProperties().getDeliveryTag(),false);
         CoreUtil.info("message ack end", message.getMessageProperties().getDeliveryTag());
+    }
+
+    private void send() {
+        rabbitTemplate.setConfirmCallback((correlationData, ack, cause) -> {
+            CoreUtil.info("correlationData ack cause", correlationData, ack, cause);
+        });
+        rabbitTemplate.setReturnsCallback(returned -> {
+            CoreUtil.info("returned", returned);
+        });
+        rabbitTemplate.convertAndSend("directExchange", "articleKey", CommonResult.success(), new CorrelationData(UUID.randomUUID().toString()));
+        CoreUtil.info("send end");
     }
 
 }

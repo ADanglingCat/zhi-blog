@@ -39,6 +39,9 @@
         <lombok.version>1.18.24</lombok.version>
         <spring.doc.version>1.6.8</spring.doc.version>
         <zhi.blog.version>1.0</zhi.blog.version>
+        <mybatisplus.version>3.5.2</mybatisplus.version>
+        <mysql.version>8.0.29</mysql.version>
+        <druid.version>1.2.11</druid.version>
     </properties>
 
     <dependencyManagement>
@@ -80,19 +83,21 @@
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
-                <version>8.0.29</version>
+                <version>${mysql.version}</version>
             </dependency>
             <!--druid连接池-->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
-                <version>1.2.11</version>
+                <version>${druid.version}</version>
             </dependency>
+            <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter -->
             <dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>2.2.2</version>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatisplus.version}</version>
             </dependency>
+
             <!--springdoc-->
             <dependency>
                 <groupId>org.springdoc</groupId>
@@ -118,6 +123,11 @@
             <dependency>
                 <groupId>com.zhi.blog</groupId>
                 <artifactId>zhi-blog-common-nacos</artifactId>
+                <version>${zhi.blog.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zhi.blog</groupId>
+                <artifactId>zhi--blog-common-sentinel</artifactId>
                 <version>${zhi.blog.version}</version>
             </dependency>
             <dependency>

@@ -13,7 +13,7 @@
 | SpringCloudAlibaba | 微服务框架    | 2021.0.1.0 |
 | Lombok             | 代码简化工具   | 1.18.24    |
 | SpringDoc          | 接口文档文具   | 1.6.8      |
-| AuthServer         | 授权服务     | 0.3.1      |
+| SpringAuthServer   | 授权服务     | 0.3.1      |
 
 ### 服务介绍
 
@@ -37,23 +37,16 @@
 - [x] 统一异常处理
 - [x] RabbitMq 配置
 - [x] Redis 配置
-- [x] MySQL 配置
+- [ ] MySQL 配置: druid, mybatis
 - [x] Nacos 配置中心和注册中心
-- [x] OpenFeign 服务调用
-- [ ] OpenFeign 优化
+- [ ] OpenFeign: 服务调用, OpenFeign 优化
 - [x] Gateway网关统一处理请求
 - [x] OAuth2 认证
 - [ ] Sentinel 流量控制
 - [ ] Skywalking链路追踪
-- [ ] Spring Boot Admin监控服务
 - [ ] Seata分布式事务
+- [ ] Spring Boot Admin监控服务
 - [ ] ELK 日志收集
 - [ ] Docker 容器
-- [ ] K8S
-- [ ] Gitlab ci/cd
-- [ ] 前端配置
-- [ ] 集群
-- [ ] 部署云服务器
-
-
+- [ ] K8S 集群管理
 
